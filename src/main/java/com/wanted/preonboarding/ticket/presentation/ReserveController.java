@@ -34,10 +34,24 @@ public class ReserveController {
     }
 
     @PostMapping("/register")
-    public boolean register(){
-        log.info("[ 등록 ]");
+    public boolean register() {
+        System.out.println("[ register ]");
 
+        System.out.println(ticketSeller.getPerformanceUUID("김경민의 서커스").getId());
 
+        return true;
+
+//        return ticketSeller.reserve(ReserveInfo.builder()
+//            .performanceId(UUID.fromString("4438a3e6-b01c-11ee-9426-0242ac180002"))
+//            .reservationName("유진호")
+//            .reservationPhoneNumber("010-1234-1234")
+//            .reservationStatus("reserve")
+//            .amount(200000)
+//            .round(1)
+//            .line('A')
+//            .seat(1)
+//            .build()
+//        );
     }
 
 

@@ -23,8 +23,8 @@ class BackendPreonboardingApplicationTests {
     }
 
     @Test
-    void contextLoads() {
-        String url = "http://localhost:8016/reserve/";
+    void postTest() {
+        String url = "http://localhost:8016/reserve/register";
 
         String requestData = "";
 
@@ -32,7 +32,6 @@ class BackendPreonboardingApplicationTests {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // HttpEntity 생성
         HttpEntity<String> requestEntity = new HttpEntity<>(requestData, headers);
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
@@ -49,7 +48,7 @@ class BackendPreonboardingApplicationTests {
 
 
     @Test
-    void queryPerformance() {
+    void getTest() {
         String url = "http://localhost:8016/query/all/performance";
 
         String requestData = "";
