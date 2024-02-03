@@ -33,25 +33,24 @@ public class ReserveController {
         );
     }
 
+    // 예약 시스템
     @PostMapping("/register")
-    public boolean register() {
+    public boolean register(@RequestBody ReserveInfo reserveInfo) {
         System.out.println("[ register ]");
 
-        System.out.println(ticketSeller.getPerformanceUUID("김경민의 서커스").getId());
+        UUID performanceId = ticketSeller.getPerformanceUUID("김경민의 서커스").getId();
 
-        return true;
-
-//        return ticketSeller.reserve(ReserveInfo.builder()
-//            .performanceId(UUID.fromString("4438a3e6-b01c-11ee-9426-0242ac180002"))
-//            .reservationName("유진호")
-//            .reservationPhoneNumber("010-1234-1234")
-//            .reservationStatus("reserve")
-//            .amount(200000)
-//            .round(1)
-//            .line('A')
-//            .seat(1)
-//            .build()
-//        );
+        return ticketSeller.reserve(ReserveInfo.builder()
+            .performanceId(performanceId)
+            .reservationName(reserveInfo.getReservationName())
+            .reservationPhoneNumber(reserveInfo.getReservationPhoneNumber())
+            .reservationStatus(reserveInfo.getReservationStatus())
+            .amount(reserveInfo.getAmount())
+            .round(reserveInfo.getRound())
+            .line(reserveInfo.getLine())
+            .seat(reserveInfo.getSeat())
+            .build()
+        );
     }
 
 

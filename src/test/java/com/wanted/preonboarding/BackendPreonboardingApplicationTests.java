@@ -9,6 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -26,13 +29,20 @@ class BackendPreonboardingApplicationTests {
     void postTest() {
         String url = "http://localhost:8016/reserve/register";
 
-        String requestData = "";
+        Map<String, Object> requestData = new HashMap<>();
+        requestData.put("reservationName", "손나현");
+        requestData.put("reservationPhoneNumber", "01011112222");
+        requestData.put("reservationStatus", "예약");
+        requestData.put("amount", "100000");
+        requestData.put("round", "1");
+        requestData.put("line", "K");
+        requestData.put("seat", "12");
 
         // HttpHeaders 설정
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestData, headers);
+        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
 
