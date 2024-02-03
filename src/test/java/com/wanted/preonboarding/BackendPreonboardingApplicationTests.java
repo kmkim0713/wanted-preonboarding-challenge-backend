@@ -57,7 +57,6 @@ class BackendPreonboardingApplicationTests {
         // HttpHeaders 설정
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
         // HttpEntity 생성
         HttpEntity<String> requestEntity = new HttpEntity<>(requestData, headers);
 
