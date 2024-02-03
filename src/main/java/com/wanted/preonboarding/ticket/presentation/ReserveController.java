@@ -1,8 +1,11 @@
 package com.wanted.preonboarding.ticket.presentation;
 
+import com.wanted.preonboarding.core.domain.response.ResponseHandler;
 import com.wanted.preonboarding.ticket.application.TicketSeller;
 import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,23 +38,24 @@ public class ReserveController {
 
     // 예약 시스템
     @PostMapping("/register")
-    public boolean register(@RequestBody ReserveInfo reserveInfo) {
+    public ResponseEntity<ResponseHandler<Map<String, Object>>> register(@RequestBody ReserveInfo reserveInfo) {
         System.out.println("[ register ]");
 
         UUID performanceId = ticketSeller.getPerformanceUUID("김경민의 서커스").getId();
 
-        return ticketSeller.reserve(ReserveInfo.builder()
-            .performanceId(performanceId)
-            .reservationName(reserveInfo.getReservationName())
-            .reservationPhoneNumber(reserveInfo.getReservationPhoneNumber())
-            .reservationStatus(reserveInfo.getReservationStatus())
-            .amount(reserveInfo.getAmount())
-            .round(reserveInfo.getRound())
-            .line(reserveInfo.getLine())
-            .seat(reserveInfo.getSeat())
-            .build()
-        );
+        return ticketSeller.reserveResponse(ticketSeller.reserve(ReserveInfo.builder()
+                .performanceId(performanceId)
+                .reservationName(reserveInfo.getReservationName())
+                .reservationPhoneNumber(reserveInfo.getReservationPhoneNumber())
+                .reservationStatus(reserveInfo.getReservationStatus())
+                .amount(reserveInfo.getAmount())
+                .round(reserveInfo.getRound())
+                .line(reserveInfo.getLine())
+                .seat(reserveInfo.getSeat())
+                .build()), reserveInfo);
+
     }
+
 
 
 

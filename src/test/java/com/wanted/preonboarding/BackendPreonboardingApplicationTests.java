@@ -33,7 +33,7 @@ class BackendPreonboardingApplicationTests {
         requestData.put("reservationName", "손나현");
         requestData.put("reservationPhoneNumber", "01011112222");
         requestData.put("reservationStatus", "예약");
-        requestData.put("amount", "100000");
+        requestData.put("amount", "10000");
         requestData.put("round", "1");
         requestData.put("line", "K");
         requestData.put("seat", "12");
