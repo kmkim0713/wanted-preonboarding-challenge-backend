@@ -10,4 +10,5 @@ import java.util.UUID;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     Reservation findByNameAndPhoneNumber(String name, String phoneNumber);
+    
 }
