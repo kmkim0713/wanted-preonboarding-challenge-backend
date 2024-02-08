@@ -5,8 +5,8 @@ services:
     ports:
       - 13306:3306
     volumes:
-      - /Users/kyungminkim/Desktop/study_volumes/data:/var/lib/mysql:rw
-      - /Users/kyungminkim/Desktop/study/src/main/resources/initdb:/docker-entrypoint-initdb.d
+      - /Users/kimkyungmin/Desktop/vsc_study/mysql_data:/var/lib/mysql:rw
+      - /Users/kimkyungmin/Desktop/vsc_study/wanted-preonboarding-challenge-backend-16/src/main/resources/initdb:/docker-entrypoint-initdb.d
     command:
       - '--character-set-server=utf8mb4'
       - '--collation-server=utf8mb4_unicode_ci'

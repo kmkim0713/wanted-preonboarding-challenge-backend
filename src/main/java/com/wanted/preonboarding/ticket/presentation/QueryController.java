@@ -25,7 +25,7 @@ public class QueryController {
             .ok()
             .body(ResponseHandler.<List<PerformanceInfo>>builder()
                 .message("Success")
-                .statuÍsCode(HttpStatus.OK)
+                .statusCode(HttpStatus.OK)
                 .data(ticketSeller.getAllPerformanceInfoList())
                 .build()
             );
