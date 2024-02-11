@@ -53,11 +53,7 @@ public class ReserveController {
                 .line(reserveInfo.getLine())
                 .seat(reserveInfo.getSeat())
                 .build()), reserveInfo);
-
     }
-
-
-
 
 
 }

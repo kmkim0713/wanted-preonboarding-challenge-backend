@@ -74,7 +74,6 @@ public class TicketSeller {
             responseData.put("reservationName", reserveInfo.getReservationName());
             responseData.put("reservationPhoneNumber", reserveInfo.getReservationPhoneNumber());
 
-            // 왜 빨간줄이 뜨는지 모르겠음..
             ResponseHandler<Map<String, Object>> responseHandler = ResponseHandler.<Map<String, Object>>builder()
                     .statusCode(HttpStatus.OK)
                     .message("예약 성공")
