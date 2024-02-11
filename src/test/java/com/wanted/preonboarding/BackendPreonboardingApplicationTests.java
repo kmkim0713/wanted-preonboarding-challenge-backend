@@ -2,63 +2,59 @@ package com.wanted.preonboarding;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.test.web.servlet.MockMvc;
+
+import org.springframework.test.web.servlet.ResultActions;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
 
 import java.util.HashMap;
 import java.util.Map;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@SuppressWarnings("null")
+@AutoConfigureMockMvc
 @SpringBootTest
 class BackendPreonboardingApplicationTests {
 
-    private RestTemplate restTemplate;
+    @Autowired
+    private MockMvc mockMvc;
 
     @Autowired
-    public BackendPreonboardingApplicationTests(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
-    }
-
+    private ObjectMapper objectMapper;
 
     @Test
     void contextLoads() {
     }
 
-    @SuppressWarnings("deprecation")
     @Test
-    void postTest() {
-        String url = "http://localhost:8016/reserve/register";
+    void registerTest() throws JsonProcessingException, Exception {
+        
+        ReserveInfo reserveInfo = ReserveInfo.builder()
+                .reservationName("김경민")
+                .reservationPhoneNumber("01011112222")
+                .reservationStatus("예약")
+                .amount(10000)
+                .round(1)
+                .line('K')
+                .seat(12)
+                .build();
 
-        Map<String, Object> requestData = new HashMap<>();
-        requestData.put("reservationName", "손나현");
-        requestData.put("reservationPhoneNumber", "01011112222");
-        requestData.put("reservationStatus", "예약");
-        requestData.put("amount", "10000");
-        requestData.put("round", "1");
-        requestData.put("line", "K");
-        requestData.put("seat", "12");
+        
+        ResultActions resultActions = mockMvc.perform(post("/reserve/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(reserveInfo)));
 
-        // HttpHeaders 설정
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            resultActions.andExpect(status().isOk());
 
-        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+        }
 
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
 
-        // 응답 코드 확인
-        assertEquals(200, responseEntity.getStatusCodeValue());
-
-        // 응답 본문 확인 (필요에 따라 추가)
-        String responseBody = responseEntity.getBody();
-
-        System.out.println(responseBody);
-
-    }
 
 }
