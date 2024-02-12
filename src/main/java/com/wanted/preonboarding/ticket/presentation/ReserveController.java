@@ -3,6 +3,7 @@ package com.wanted.preonboarding.ticket.presentation;
 import com.wanted.preonboarding.core.exception.InsufficientBalanceException;
 import com.wanted.preonboarding.ticket.application.TicketSeller;
 import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
+import com.wanted.preonboarding.ticket.domain.dto.ReserveResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +35,9 @@ public class ReserveController {
     }
 
     @PostMapping("/register")
-    public boolean register(@RequestBody ReserveInfo reserveInfo) throws InsufficientBalanceException {
+    public ReserveResponse register(@RequestBody ReserveInfo reserveInfo) throws InsufficientBalanceException {
         
         System.out.println("[ 예약 진행 ]");
-
         return ticketSeller.register(reserveInfo);
     }
     
