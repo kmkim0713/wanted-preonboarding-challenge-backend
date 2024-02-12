@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wanted.preonboarding.ticket.domain.dto.ReserveRegister;
+import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,11 +35,12 @@ class BackendPreonboardingApplicationTests {
     void reserveRegister() throws JsonProcessingException, Exception {
         String url = "http://localhost:8016/reserve/register";
 
-        ReserveRegister requestDto = ReserveRegister.builder()
+        ReserveInfo reserveInfo = ReserveInfo.builder()
         .reservationName("김경민")
         .reservationPhoneNumber("01011112222")
-        .amount(10000L)
+        .amount(100000L)
         .performanceName("김경민의 서커스")
+        .reservationStatus("예약")
         .round(1)
         .line('K')
         .seat(12)
@@ -47,7 +48,7 @@ class BackendPreonboardingApplicationTests {
         
         mockMvc.perform(post(url)
         .contentType(MediaType.APPLICATION_JSON)
-        .content(objectMapper.writeValueAsString(requestDto)))
+        .content(objectMapper.writeValueAsString(reserveInfo)))
         .andExpect(status().isOk());
     }
 
