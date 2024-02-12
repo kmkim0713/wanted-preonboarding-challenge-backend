@@ -2,7 +2,7 @@ package com.wanted.preonboarding.ticket.presentation;
 
 import com.wanted.preonboarding.ticket.application.TicketSeller;
 import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
-import com.wanted.preonboarding.ticket.domain.dto.ReserveRegisterByPerformanceName;
+import com.wanted.preonboarding.ticket.domain.dto.ReserveRegister;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +33,12 @@ public class ReserveController {
         );
     }
 
-    @PostMapping("/register/performanceName")
-    public String register(@RequestBody ReserveRegisterByPerformanceName reserveRegisterByPerformanceName) {
+    @PostMapping("/register")
+    public String register(@RequestBody ReserveRegister reserveRegister) {
         
+        System.out.println("[ 예약 진행 ]");
         
+        ticketSeller.register(reserveRegister);
 
 
         return "OK";

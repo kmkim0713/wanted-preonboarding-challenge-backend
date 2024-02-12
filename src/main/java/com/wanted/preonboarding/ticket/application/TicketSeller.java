@@ -2,6 +2,7 @@ package com.wanted.preonboarding.ticket.application;
 
 import com.wanted.preonboarding.ticket.domain.dto.PerformanceInfo;
 import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
+import com.wanted.preonboarding.ticket.domain.dto.ReserveRegister;
 import com.wanted.preonboarding.ticket.domain.entity.Performance;
 import com.wanted.preonboarding.ticket.domain.entity.Reservation;
 import com.wanted.preonboarding.ticket.infrastructure.repository.PerformanceRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@SuppressWarnings("null")
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -48,6 +50,35 @@ public class TicketSeller {
         } else {
             return false;
         }
+    }
+
+    //  reserve 복사. 공연 이름으로 예약
+    public boolean register(ReserveRegister reserveRegister) {
+
+        Performance info = null;
+        if(reserveRegister.getPerformanceId() != null){
+            info = performanceRepository.findById(reserveRegister.getPerformanceId())
+            .orElseThrow(EntityNotFoundException::new);
+        } else {
+            info = performanceRepository.findOptionalByName(reserveRegister.getPerformanceName())
+            .orElseThrow(EntityNotFoundException::new);
+        }
+        System.out.println("Reservation Name: " + info.getName());
+
+        // String enableReserve = info.getIsReserve();
+        // if (enableReserve.equalsIgnoreCase("enable")) {
+        //     // 1. 결제
+        //     int price = info.getPrice();
+        //     reserveInfo.setAmount(reserveInfo.getAmount() - price);
+        //     // 2. 예매 진행
+        //     reservationRepository.save(Reservation.of(reserveInfo));
+        //     return true;
+
+        // } else {
+        //     return false;
+        // }
+
+        return true;
     }
 
 }

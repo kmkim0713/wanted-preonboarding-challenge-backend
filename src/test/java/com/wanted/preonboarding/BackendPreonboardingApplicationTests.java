@@ -7,17 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wanted.preonboarding.ticket.application.TicketSeller;
-import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
-import com.wanted.preonboarding.ticket.domain.dto.ReserveRegisterByPerformanceName;
+import com.wanted.preonboarding.ticket.domain.dto.ReserveRegister;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,18 +27,15 @@ class BackendPreonboardingApplicationTests {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private TicketSeller ticketSeller;
-
     @Test
     void contextLoads() {
     }
 
     @Test
     void reserveRegister() throws JsonProcessingException, Exception {
-        String url = "http://localhost:8016/reserve/register/performanceName";
+        String url = "http://localhost:8016/reserve/register";
 
-        ReserveRegisterByPerformanceName requestDto = ReserveRegisterByPerformanceName.builder()
+        ReserveRegister requestDto = ReserveRegister.builder()
         .reservationName("김경민")
         .reservationPhoneNumber("01011112222")
         .amount(10000L)
