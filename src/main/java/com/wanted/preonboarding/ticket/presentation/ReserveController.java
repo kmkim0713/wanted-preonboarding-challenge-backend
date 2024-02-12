@@ -35,15 +35,12 @@ public class ReserveController {
 
     @PostMapping("/register/performanceName")
     public String register(@RequestBody ReserveRegisterByPerformanceName reserveRegisterByPerformanceName) {
-        System.out.println("Reservation Name: " + reserveRegisterByPerformanceName.getReservationName());
-        System.out.println("Reservation Phone Number: " + reserveRegisterByPerformanceName.getReservationPhoneNumber());
-        System.out.println("Amount: " + reserveRegisterByPerformanceName.getAmount());
-        System.out.println("Performance Name: " + reserveRegisterByPerformanceName.getPerformanceName());
-        System.out.println("Round: " + reserveRegisterByPerformanceName.getRound());
-        System.out.println("Line: " + reserveRegisterByPerformanceName.getLine());
-        System.out.println("Seat: " + reserveRegisterByPerformanceName.getSeat());
+        
+        
+
 
         return "OK";
     }
     
 }
+
