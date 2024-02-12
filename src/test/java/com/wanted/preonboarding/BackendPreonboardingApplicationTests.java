@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wanted.preonboarding.ticket.application.TicketSeller;
 import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
+import com.wanted.preonboarding.ticket.domain.dto.ReserveRegisterByPerformanceName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,49 +41,24 @@ class BackendPreonboardingApplicationTests {
     }
 
     @Test
-    void registerTest() throws JsonProcessingException, Exception {
+    void reserveRegister() throws JsonProcessingException, Exception {
+        String url = "http://localhost:8016/reserve/register/performanceName";
 
-        UUID performanceId = ticketSeller.getPerformanceUUID("김경민의 서커스").getId();
-
-        ReserveInfo reserveInfo = ReserveInfo.builder()
-                .performanceId(performanceId)
-                .reservationName("김경민")
-                .reservationPhoneNumber("01011112222")
-                .reservationStatus("예약")
-                .amount(10000)
-                .round(1)
-                .line('K')
-                .seat(12)
-                .build();
-
-        
-        mockMvc.perform(post("/reserve/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(reserveInfo)));
-
-        // resultActions.andExpect(status().isOk());
-
-        }
-
-    @Test
-    void tempRegisterTest() throws JsonProcessingException, Exception {
-        String url = "http://localhost:8016/reserve/temp/register";
-        
-        UUID performanceId = ticketSeller.getPerformanceUUID("김경민의 서커스").getId();
+        ReserveRegisterByPerformanceName requestDto = ReserveRegisterByPerformanceName.builder()
+        .reservationName("김경민")
+        .reservationPhoneNumber("01011112222")
+        .amount(10000L)
+        .performanceName("김경민의 서커스")
+        .round(1)
+        .line('K')
+        .seat(12)
+        .build();
         
         mockMvc.perform(post(url)
-                .param("performanceId", performanceId.toString())
-                .param("reservationName", "김경민")
-                .param("reservationPhoneNumber", "01011112222")
-                .param("reservationStatus", "예약")
-                .param("amount", "10000")
-                .param("round", "1")
-                .param("line", "K")
-                .param("seat", "12"))
-                .andExpect(status().isOk());
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(requestDto)))
+        .andExpect(status().isOk());
     }
-
-
 
 
 }
